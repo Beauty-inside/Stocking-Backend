@@ -3,12 +3,10 @@ package bis.stock.back.domain.asset.dto;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -16,7 +14,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Entity(name="withdraw")
-@Table(name="withdraw")
 @Getter
 public class Withdraw {
 
@@ -38,27 +35,18 @@ public class Withdraw {
 	private java.util.Date date;
 
 	@Column
-	private boolean fixed;
-
+	private boolean is_fixed;
 
 	protected Withdraw() {
 	}
 
     @Builder
-    public Withdraw(String user_id, String contents, Long amount, Date date, boolean fixed) {
+    public Withdraw(String user_id, String contents, Long amount, Date date, boolean is_fixed) {
     	this.user_id = user_id;
     	this.contents = contents;
     	this.amount = amount;
     	this.date = date;
-    	//this.fixed = fixed;
-    }
-
-    public void update(String user_id, String contents, Long amount, Date date) { // boolean fixed
-    	this.user_id = user_id;
-		this.contents = contents;
-		this.amount = amount;
-		this.date = date;
-		//this.fixed = fixed;
+    	this.is_fixed = is_fixed;
     }
 
 }

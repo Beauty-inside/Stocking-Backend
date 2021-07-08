@@ -22,26 +22,6 @@ Stocking 프로젝트 Backend 레포지토리
 
 <br>
 
-## ✏ 요구사항 분석 (Backend)  
-
-- 로그인 기능 구현 (JWT + Spring Security, redis)  
-
-- 주식 API 개발 (JPA + mysql)
-  - 주식 상세보기
-  - 보유 주식 조회
-  - 주식 매수
-  - 주식 매도  
-
-- 자산 API 개발 (JPA + mysql)  
-  - 수입(또는 지출) 조회
-  - 수입(또는 지출) 등록
-  - 수입(또는 지출) 수정
-  - 수입(또는 지출) 삭제
- 
-- 서버 구축 (AWS EC2, Docker)  
-
-<br>
-
 ## 🔨 구조
 
 ```
