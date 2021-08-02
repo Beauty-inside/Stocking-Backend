@@ -1,5 +1,7 @@
 package bis.stock.back.domain.asset;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -33,7 +35,11 @@ public class DepositService {
 
 	public DepositResponseDto findById(Long id) {
 		Deposit entity = depositRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 id에 대한 정보가 존재하지 않습니다. id="+ id));
-
 		return new DepositResponseDto(entity);
 	}
+//
+//	public List<Deposit> findAllById(String id) {
+//		List<Deposit> entityList = depositRepository.findAllById(id);
+//		return new DepositResponseDto(entityList);
+//	}
 }
