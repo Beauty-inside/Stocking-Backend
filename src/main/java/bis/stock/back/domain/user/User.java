@@ -1,5 +1,6 @@
 package bis.stock.back.domain.user;
 
+import bis.stock.back.domain.holdingStock.HoldingStock;
 import bis.stock.back.domain.user.dto.UserUpdateDto;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,6 +37,9 @@ public class User implements UserDetails{
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "user")
+    private List<HoldingStock> holdingStocks;
 
     // 생성 시간 저장
     @PrePersist

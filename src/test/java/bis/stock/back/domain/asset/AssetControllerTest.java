@@ -63,6 +63,16 @@ class AssetControllerTest {
     }
 
 	@Test
+    void 입금조회() throws Exception {
+		Long id = 3L;
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .get("/asset/deposit/"+id);
+
+        mockMvc.perform(requestBuilder).andExpect(status().isOk()).andDo(print());
+    }
+
+	@Test
     void 지출추가() throws Exception {
 		java.util.Date date = new Date();
 
@@ -76,10 +86,21 @@ class AssetControllerTest {
         );
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/asset/deposit/post")
+                .post("/asset/withdraw/post")
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder).andExpect(status().isOk()).andDo(print());
     }
+
+	@Test
+    void 지출조회() throws Exception {
+		Long id = 3L;
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .get("/asset/withdraw/"+id);
+
+        mockMvc.perform(requestBuilder).andExpect(status().isOk()).andDo(print());
+    }
+
 }

@@ -1,45 +1,22 @@
 package bis.stock.back.domain.stock;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JsonParseException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import bis.stock.back.domain.auth.AuthService;
-import bis.stock.back.domain.auth.dto.JoinDto;
 import bis.stock.back.domain.stock.dto.Stock;
 import lombok.RequiredArgsConstructor;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/stock")
 public class StockController {
 
-   @Autowired
-   StockService stockService;
+   private final StockService stockService;
 
    @ResponseBody
    @RequestMapping(value="/detail")               //defaultValue 지워도 됨 아직 편의상 넣어둠
@@ -55,6 +32,20 @@ public class StockController {
       }
 
       return stockService.detail(itemcode, itemname);
+   }
+
+   @GetMapping("/detail")
+   public String getStockDetailByCode(@RequestParam(value="itemCode") String itemCode) {
+
+      String itemName = stockService.findName(itemCode);
+      return stockService.detail(itemCode, itemName);
+   }
+
+   // ...:8080/stock/005930 (Item code)
+   @GetMapping("/{code}")
+   public ResponseEntity<Stock> getStockByCode(@PathVariable String code) {
+
+      return ResponseEntity.ok(stockService.getStock(code));
    }
 
    @ResponseBody
@@ -86,6 +77,11 @@ public class StockController {
       return res.put("stockList", stockList);
    }
 
+   @GetMapping("/list")
+   public ResponseEntity<List> list() {
+
+      return ResponseEntity.ok(stockService.list());
+   }
 
    @ResponseBody
    @RequestMapping(value="/myList")

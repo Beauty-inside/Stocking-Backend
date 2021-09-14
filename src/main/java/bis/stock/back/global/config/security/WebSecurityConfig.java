@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .httpBasic().disable() // rest api 고려해서 기본 설정 해제
-                .csrf().disable() // csrf 보안 토큰 해제
+                .cors().and().csrf().disable() // csrf 보안 토큰 해제
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션은 사용 안하니까 해제
 
                 .and()

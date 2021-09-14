@@ -1,5 +1,10 @@
 # 공통사항들 모아놓음
 spring:
+  # TODO : 기본적으로 Http exeption의 메세지를 표시하지 않도록 되어있음. (보안 문제) 메세지는 표시되도록 풀어주기
+  server:
+    error:
+      include-message: true
+
   profiles:
     active: local
 
@@ -13,9 +18,6 @@ spring:
     type: redis
     port: 6379
 
-  redis:
-    host: 34.83.181.251
-
   jpa:
     generate-ddl: true
     database: mysql
@@ -23,13 +25,14 @@ spring:
       ddl-auto: update # application 실행 시점에 기존 ddl 정보를 다 지우고 다시 실행시킨다. 그대로 유지하려면 none
     properties:
       hibernate:
-        show_sql: true # jpa, hibernate가 생성하는 모든 sql이 sout으로 찍힌다
+        # show_sql: true # jpa, hibernate가 생성하는 모든 sql이 sout으로 찍힌다
         # 운영환경에서는 sout이 아닌 log로 나타내야 한다
         format_sql: true
 ---
-
 # 배포용 profile
 spring:
+  redis:
+    host: redis
   config:
     activate:
       on-profile: prod
@@ -40,14 +43,19 @@ spring:
       allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true&autoReconnection=true
 
 ---
+# TODO : docker-compose를 이용해서 컨테이너 설정하고, datasource 설정 다시하기
 # 개발환경용
+# 146.56.100.95 - oracle
+# 52.78.111.36 - 우성이 aws
 spring:
+  redis:
+    host: 146.56.100.95
   config:
     activate:
       on-profile: local
   datasource: #database source 작성
     url: > # localhost 부분 클라우드 ip로 변경. 하지만 배포할 때에는 localhost로 되어 있어야 접근할 수 있음.
-      jdbc:mysql://52.78.111.36:3306/stocking?
+      jdbc:mysql://146.56.100.95:3306/stocking?
       useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&
       allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true&autoReconnection=true
 

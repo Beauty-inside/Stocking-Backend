@@ -37,7 +37,7 @@ public class AssetController {
 		return depositService.save(requestDto);
 	}
 	@GetMapping("/deposit/{id}") // 유저별 수입내역 전체 조회
-	public List<Deposit> findAllById(@PathVariable String id) {
+	public List<Deposit> findAllById(@PathVariable Long id) {
 		return depositRepository.findAllById(id);
 	}
 
@@ -56,7 +56,7 @@ public class AssetController {
 		return withdrawService.save(requestDto);
 	}
 	@GetMapping("/withdraw/{id}") // 유저별 지출내역 전체 조회
-	public List<Withdraw> withdrawfindAllById(@PathVariable String id) {
+	public List<Withdraw> withdrawfindAllById(@PathVariable Long id) {
 		return withrdrawRepository.findAllById(id);
 	}
 
